@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23507" systemVersion="24A348" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Claim_table" representedClassName="Claim_table" syncable="YES" codeGenerationType="class">
+        <attribute name="claim_amount" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="date_of_claim" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
+        <relationship name="policy_id" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Insurance_table" inverseName="claims" inverseEntity="Insurance_table"/>
+    </entity>
+    <entity name="Customer_table" representedClassName="Customer_table" syncable="YES" codeGenerationType="class">
+        <attribute name="age" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="insurance" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Insurance_table" inverseName="customer_id" inverseEntity="Insurance_table"/>
+    </entity>
+    <entity name="Insurance_table" representedClassName="Insurance_table" syncable="YES" codeGenerationType="class">
+        <attribute name="end_date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="policy_type" optional="YES" attributeType="String"/>
+        <attribute name="premium_amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="start_date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="claims" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Claim_table" inverseName="policy_id" inverseEntity="Claim_table"/>
+        <relationship name="customer_id" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Customer_table" inverseName="insurance" inverseEntity="Customer_table"/>
+        <relationship name="payments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Payment_table" inverseName="policy_id" inverseEntity="Payment_table"/>
+    </entity>
+    <entity name="Payment_table" representedClassName="Payment_table" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="payment_amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="payment_date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="payment_method" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
+        <relationship name="policy_id" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Insurance_table" inverseName="payments" inverseEntity="Insurance_table"/>
+    </entity>
+    <entity name="Test" representedClassName="Test" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
+</model>
